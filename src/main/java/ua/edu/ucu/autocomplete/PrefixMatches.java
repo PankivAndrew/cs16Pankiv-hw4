@@ -6,6 +6,9 @@ import ua.edu.ucu.tries.Trie;
 import ua.edu.ucu.tries.Tuple;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Objects;
 
 /**
  *
@@ -65,12 +68,63 @@ public class PrefixMatches {
     }
 
     public Iterable<String> wordsWithPrefix(String pref, int k) {
-        throw new UnsupportedOperationException("Not supported yet.");        
+        int length = 0;
+        int index = 0;
+        int check = 0;
+        String[] prefList = new String[length(trie.wordsWithPrefix(pref))];
+        for (String element : trie.wordsWithPrefix(pref)) {
+            prefList[index] = element;
+            index++;
+        }
+        index = 0;
+        Arrays.sort(prefList, new Comparator<String>() {
+
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.length()-o2.length();
+            }
+        });
+        for(String element : prefList){
+            if(length < element.length()){
+                check++;
+            }
+            if(check - 1 == k){
+                break;
+            }
+            index++;
+            length = element.length();
+        }
+        String[] arr = new String[index];
+        index = 0;
+        length = 0;
+        check = 0;
+        for(String element : prefList){
+            if(length < element.length()){
+                check++;
+            }
+            if(check - 1 == k){
+                break;
+            }
+            arr[index] = element;
+            index++;
+            length = element.length();
+        }
+        Iterable<String> itr = Arrays.asList(arr);
+        return itr;
+    }
+    public int length(Iterable<String> pref){
+        int size = 0;
+        for(String value : pref) {
+            size++;
+        }
+        return size;
     }
 
     public int size() {
         return trie.size();
+
     }
+
 
 
 }
