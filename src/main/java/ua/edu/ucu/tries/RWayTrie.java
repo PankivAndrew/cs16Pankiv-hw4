@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Objects;
 
-public class RWayTrie<Value> implements Trie {
+public class RWayTrie implements Trie {
     ArrayList<Tuple> list = new ArrayList();
     private static int R = 26; // radix
     private Node root; // root of trie
@@ -13,15 +13,15 @@ public class RWayTrie<Value> implements Trie {
     public void add(Tuple t) {
         list.add(t);
     }
-    public Tuple get(int i){
-        return list.get(i);
-    }
+//    public Tuple get(int i){
+//        return list.get(i);
+//    }
 
-    public Value get(String key)
+    public Object get(String key)
     {
         Node x = get(root, key, 0);
         if (x == null) return null;
-        return (Value) x.val;
+        return  x.val;
     }
     private Node get(Node x, String key, int d)
     { // Return value associated with key in the subtrie rooted at x.
@@ -30,6 +30,18 @@ public class RWayTrie<Value> implements Trie {
         char c = key.charAt(d); // Use dth key char to identify subtrie.
         return get(x.next[c], key, d+1);
     }
+    public void put(Tuple t)
+    { root = put(root, t.getTerm(), t.getWeight(), 0); }
+    private Node put(Node x, String key, Object val, int d)
+    { // Change value associated with key if in subtrie rooted at x.
+        if (x == null) x = new Node();
+        if (d == key.length()) { x.val = val; return x; }
+        char c = key.charAt(d); // Use dth key char to identify subtrie.
+        x.next[c] = put(x.next[c], key, val, d+1);
+        return x;
+    }
+
+
 
 
     @Override
@@ -58,7 +70,7 @@ public class RWayTrie<Value> implements Trie {
     public Iterable<String> words() {
         Iterable<String> itr = new Iterable<String>() {
             @Override
-            public Iterator<String> iterator() {
+             public Iterator<String> iterator() {
                 return null;
             }
         };

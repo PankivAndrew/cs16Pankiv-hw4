@@ -14,5 +14,5 @@ public interface Trie {
     
     int size();
 
-    Tuple get(int i);
+//    Tuple get(int i);
 }
