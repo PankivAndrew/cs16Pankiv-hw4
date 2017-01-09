@@ -1,14 +1,10 @@
 package ua.edu.ucu.autocomplete;
-
-import sun.management.counter.Units;
-import ua.edu.ucu.tries.RWayTrie;
 import ua.edu.ucu.tries.Trie;
 import ua.edu.ucu.tries.Tuple;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Objects;
+
 
 /**
  *
@@ -20,7 +16,7 @@ public class PrefixMatches {
     private Trie trie;
 
     public PrefixMatches(Trie trie) {
-        this.trie = new RWayTrie();
+        this.trie = trie;
     }
     public boolean isLine(String string){
         Boolean isline = false;
