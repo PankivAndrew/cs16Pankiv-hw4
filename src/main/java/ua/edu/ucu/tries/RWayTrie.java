@@ -24,7 +24,7 @@ public class RWayTrie implements Trie {
     }
 
     public void put(Tuple t) {
-        root = root.put(root, t.getTerm(), t.getWeight(), 0);
+        root.put(root, t.getTerm(), t.getWeight(), 0);
     }
 
     @Override
